@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeremiah Morris-Wyley | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Titillium+Web:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- Header: flex container #1 (name on the left, nav on the right) -->
+    <header class="site-header">
+        <div class="container header-inner">
+            <h1 class="site-title">Jeremiah Morris-Wyley</h1>
+            <nav aria-label="Main navigation">
+                <!-- Nav list: flex container #2 -->
+                <ul class="nav-list">
+                    <li><a href="#about" class="nav-link active" data-target="about-view">About</a></li>
+                    <li><a href="https://jeremiahmwportfolio.my.canva.site/" target="_blank" rel="noopener">Portfolio</a></li>
+                    <li><a href="#contact" class="nav-link" data-target="contact-view">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main: flex container #3 (content column + sidebar side by side) -->
+    <main class="container main-layout">
+
+        <!-- About Me -->
+        <section id="about-view" class="page-view content-panel">
+            <article>
+                <h2>About Me</h2>
+                <img src="images/Headshot.png" alt="Headshot of Jeremiah Morris-Wyley" class="profile-img">
+                <p>I’m Jeremiah Morris‑Wyley, a Digital Media professional passionate about accessible web design,
+                    UX, and public‑sector communication. Since February 2024, I’ve worked as a Technical Support
+                    Specialist for the City of Groveland, where I manage the municipal website, mobile app, and
+                    software systems. I recently earned my B.A. in Digital Media from the University of Central
+                    Florida, with a focus on web design, accessibility, and digital storytelling.</p>
+                <p>Originally from North Carolina and now rooted in Tavares, Florida, I enjoy building inclusive
+                    digital experiences that strengthen community engagement. My career goal is to become a
+                    webmaster or website manager for a county or state agency, continuing to bridge technology and
+                    public service.</p>
+            </article>
+        </section>
+
+        <!-- Contact -->
+        <section id="contact-view" class="page-view content-panel" hidden>
+            <article>
+                <h2>Get In Touch</h2>
+                <p>Have a question, project, or opportunity you'd like to discuss? Fill out the form below and I'll
+                    get back to you as soon as I can.</p>
+
+                <form action="#" method="POST" class="contact-form" id="contact-form">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject">
+
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="6" required></textarea>
+
+                    <button type="submit">Send Message</button>
+                </form>
+
+                <p id="form-success" class="form-success" hidden>
+                    Thank you for your submission! (This form is a test for a school assignment.)
+                </p>
+            </article>
+        </section>
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Connect with Me</h2>
+            <!-- Social links: flex container #4 -->
+            <ul class="social-list">
+                <li>
+                    <a href="https://github.com/Je9017962" target="_blank" rel="noopener">
+                        <img src="images/git.png" alt="GitHub">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/jeremiahmw/" target="_blank" rel="noopener">
+                        <img src="images/linkedin.png" alt="LinkedIn">
+                    </a>
+                </li>
+                <li>
+                    <a href="https://stackoverflow.com" target="_blank" rel="noopener">
+                        <img src="images/soverflow.png" alt="Stack Overflow">
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </main>
+
+    <!-- Footer: flex container #5 -->
+    <footer class="site-footer">
+        <p>&copy; 2026 Jeremiah Morris-Wyley</p>
+    </footer>
+
+    <script>
+        // Toggle between the About and Contact views without leaving the page
+        const navLinks = document.querySelectorAll('.nav-link');
+        const pageViews = document.querySelectorAll('.page-view');
+        const contactForm = document.getElementById('contact-form');
+        const formSuccess = document.getElementById('form-success');
+
+        function showView(targetId) {
+            pageViews.forEach(view => {
+                view.hidden = view.id !== targetId;
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.dataset.target === targetId);
+            });
+
+            if (targetId === 'contact-view') {
+                contactForm.hidden = false;
+                formSuccess.hidden = true;
+            }
+        }
+
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showView(link.dataset.target);
+                history.replaceState(null, '', link.getAttribute('href'));
+            });
+        });
+
+        // Show a thank-you message instead of actually submitting the form
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.hidden = true;
+            formSuccess.hidden = false;
+        });
+
+        // Support direct linking via URL hash (e.g. index.html#contact)
+        if (window.location.hash === '#contact') {
+            showView('contact-view');
+        }
+    </script>
+</body>
+
+</html>

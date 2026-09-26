@@ -1,0 +1,315 @@
+/* =========================================================
+   Assignment 4 – Portfolio rebuilt with CSS Flexbox
+   Floats are used ONLY to wrap the About Me text around the
+   profile image. All page layout is done with Flexbox.
+   ========================================================= */
+
+/* ---------- Reset / base ---------- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+p,
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+:root {
+    --teal: #2c5773;
+    --teal-dark: #1f405a;
+    --gray: #7f7f7f;
+    --text: #555;
+    --rule: #888;
+    --heading-font: 'Permanent Marker', cursive;
+    --body-font: 'Titillium Web', Arial, sans-serif;
+}
+
+/* Flex container: stacks header / main / footer and keeps the
+   footer pinned to the bottom of the viewport (sticky footer). */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-family: var(--body-font);
+    font-weight: 300;
+    color: var(--text);
+    background-color: #eef1f4;
+    background-image: url('images/fancy.png'); /* background pattern */
+    background-repeat: repeat;
+}
+
+/* Shared centered width, like the mockup */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ---------- Header ---------- */
+.site-header {
+    background-color: #fff;
+    border-bottom: 2px solid var(--rule);
+}
+
+/* Flex container: name on the left, nav on the right */
+.header-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.site-title {
+    background-color: var(--teal);
+    color: #fff;
+    font-family: var(--heading-font);
+    font-weight: normal;
+    font-size: 1.8rem;
+    padding: 14px 22px;
+}
+
+/* Flex container: nav links in a row with separators */
+.nav-list {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 20px;
+}
+
+.nav-list li+li::before {
+    content: "|";
+    color: var(--teal);
+    margin: 0 14px;
+}
+
+.nav-list a {
+    font-family: var(--heading-font);
+    font-size: 1.4rem;
+    color: var(--teal);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.nav-list a:hover,
+.nav-list a:focus {
+    color: var(--teal-dark);
+    text-decoration: underline;
+}
+
+.nav-list a.active {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+/* ---------- Main layout ---------- */
+/* Flex container: content panel + sidebar side by side */
+.main-layout {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    padding: 40px 0;
+}
+
+.content-panel {
+    flex: 0 1 68%;
+    background-color: #fff;
+    padding: 20px 10px 20px;
+}
+
+.content-panel h2,
+.sidebar h2 {
+    font-family: var(--heading-font);
+    font-weight: normal;
+    color: var(--teal);
+    border-bottom: 2px solid var(--rule);
+}
+
+.content-panel h2 {
+    font-size: 2.4rem;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+}
+
+/* The ONE allowed float: wrap the text around the image */
+.profile-img {
+    float: left;
+    width: 210px;
+    height: auto;
+    margin: 0 20px 10px 0;
+    box-shadow: 6px 6px 8px rgba(0, 0, 0, 0.35);
+}
+
+.content-panel p {
+    font-size: 1.2rem;
+    line-height: 2.1;
+    margin-bottom: 1.5em;
+}
+
+.content-panel p:last-child {
+    margin-bottom: 0;
+}
+
+/* Contain the floated image inside the article */
+.content-panel article::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+/* ---------- Sidebar ---------- */
+.sidebar {
+    flex: 0 0 28%;
+    background-color: #fff;
+    padding: 30px 20px 20px;
+    text-align: center;
+}
+
+.sidebar h2 {
+    font-size: 1.35rem;
+    padding-bottom: 10px;
+    margin-bottom: 12px;
+}
+
+/* Flex container: social icons in a centered row */
+.social-list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.social-list img {
+    width: 58px;
+    height: 58px;
+    border-radius: 8px;
+    box-shadow: 5px 5px 7px rgba(0, 0, 0, 0.4);
+    transition: transform 0.2s;
+}
+
+.social-list a:hover img,
+.social-list a:focus img {
+    transform: scale(1.12);
+}
+
+/* ---------- Contact form ---------- */
+/* Flex container: stacks label/input pairs */
+.contact-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-form[hidden],
+.form-success[hidden] {
+    display: none;
+}
+
+.contact-form label {
+    font-weight: 600;
+    color: var(--teal);
+    margin-bottom: 6px;
+}
+
+.contact-form input,
+.contact-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+}
+
+.contact-form button {
+    align-self: flex-start;
+    background-color: var(--teal);
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.contact-form button:hover {
+    background-color: var(--teal-dark);
+}
+
+.form-success {
+    background-color: #e6f4ea;
+    color: #1e6b34;
+    border: 1px solid #b7dfc4;
+    border-radius: 4px;
+    padding: 15px;
+}
+
+/* ---------- Footer ---------- */
+/* Flex container: centers footer text */
+.site-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--gray);
+    border-top: 8px solid var(--teal);
+    color: #fff;
+    font-weight: 400;
+    padding: 20px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 1040px) {
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .header-inner {
+        padding: 0;
+    }
+}
+
+@media (max-width: 760px) {
+    .header-inner {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0;
+    }
+
+    .site-title {
+        text-align: center;
+    }
+
+    .nav-list {
+        justify-content: center;
+        padding: 12px 0;
+    }
+
+    .main-layout {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 24px;
+        padding: 24px 16px;
+    }
+
+    .profile-img {
+        width: 140px;
+    }
+}
